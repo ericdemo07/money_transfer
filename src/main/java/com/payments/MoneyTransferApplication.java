@@ -1,10 +1,13 @@
 package com.payments;
 
 import com.payments.resources.ApplicationHealthCheck;
-import com.payments.resources.MainResource;
-
 import io.dropwizard.Application;
+import io.dropwizard.db.PooledDataSourceFactory;
+import io.dropwizard.flyway.FlywayBundle;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import ru.vyarus.dropwizard.guice.GuiceBundle;
+import ru.vyarus.guicey.jdbi3.JdbiBundle;
 
 public class MoneyTransferApplication extends Application<MoneyTransferConfiguration> {
 
@@ -12,8 +15,21 @@ public class MoneyTransferApplication extends Application<MoneyTransferConfigura
         new MoneyTransferApplication().run(args);
     }
 
-    public void run(MoneyTransferConfiguration moneyTransferConfiguration, Environment environment) throws Exception {
-        environment.jersey().register(new MainResource());
-        environment.healthChecks().register("APIHealthCheck", new ApplicationHealthCheck());
+    @Override
+    public void initialize(Bootstrap<MoneyTransferConfiguration> bootstrap) {
+        bootstrap.addBundle(new FlywayBundle<MoneyTransferConfiguration>() {
+            @Override
+            public PooledDataSourceFactory getDataSourceFactory(MoneyTransferConfiguration configuration) {
+                return configuration.getDatabase();
+            }
+        });
+        bootstrap.addBundle(GuiceBundle.builder()
+                .enableAutoConfig("com.payments.resources", "com.payments.jdbi.dao", "com.payments.jdbi.mapper")
+                .bundles(JdbiBundle.<MoneyTransferConfiguration>forDatabase((conf, env) -> conf.getDatabase()))
+                .build());
+    }
+
+    public void run(MoneyTransferConfiguration config, Environment env) throws Exception {
+        env.healthChecks().register("APIHealthCheck", new ApplicationHealthCheck());
     }
 }

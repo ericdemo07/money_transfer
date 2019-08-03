@@ -11,6 +11,11 @@
     <properties>
         <dropwizard.version>1.3.13</dropwizard.version>
         <mojo.plugin.version>1.6.0</mojo.plugin.version>
+        <h2.version>1.4.195</h2.version>
+        <dropwizard-guicey.version>4.2.2</dropwizard-guicey.version>
+        <guicey-jdbi3.version>0.7.0</guicey-jdbi3.version>
+        <immutables.version>2.7.5</immutables.version>
+        <dropwizard-flyway.version>1.3.0-4</dropwizard-flyway.version>
     </properties>
 
     <dependencies>
@@ -18,6 +23,37 @@
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
             <version>${dropwizard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-jdbi3</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.modules</groupId>
+            <artifactId>dropwizard-flyway</artifactId>
+            <version>${dropwizard-flyway.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.vyarus</groupId>
+            <artifactId>dropwizard-guicey</artifactId>
+            <version>${dropwizard-guicey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.vyarus.guicey</groupId>
+            <artifactId>guicey-jdbi3</artifactId>
+            <version>${guicey-jdbi3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.immutables</groupId>
+            <artifactId>value</artifactId>
+            <version>${immutables.version}</version>
         </dependency>
     </dependencies>
 
@@ -30,9 +66,19 @@
                 <configuration>
                     <mainClass>com.payments.MoneyTransferApplication</mainClass>
                     <arguments>
+                        <!--<argument>db</argument>-->
+                        <!--<argument>migrate</argument>-->
                         <argument>server</argument>
                         <argument>${project.build.outputDirectory}/config/development.yml</argument>
                     </arguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>

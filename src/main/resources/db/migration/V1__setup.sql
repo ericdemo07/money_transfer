@@ -1,0 +1,10 @@
+CREATE TABLE Accounts(
+Id UUID,
+CurrentBalance DECIMAL,
+AccountStatus ENUM('ACTIVE','DEACTIVE','BLOCKED','UNDER_SCRUTINY'),
+CreatedAt TIMESTAMP WITH TIME ZONE
+);
+
+INSERT INTO Accounts(Id, CurrentBalance, AccountStatus )
+VALUES
+('65e65a27-89cf-473d-8e31-526264db78e3', 12345609.00, 'ACTIVE');
