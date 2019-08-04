@@ -1,13 +1,13 @@
 package com.payments.resources;
 
-import com.payments.models.Account;
+import com.payments.models.AccountModel;
+import com.payments.models.ImmutableAccountModel;
 import com.payments.services.AccountsService;
-import org.eclipse.jetty.http.HttpStatus;
+import com.payments.services.enums.AccountStatus;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("/accounts")
@@ -19,12 +19,34 @@ public class AccountsResource {
 
     @GET
     @Path("{accountUUID}")
-    public Response getAccount(@PathParam("accountUUID") UUID accountId) throws Exception {
-        System.out.println("\n\naccountId :" + accountId);
-        Account account = accountsService.getAccount(accountId);
-        if (account != null) {
-            return Response.ok(account).build();
-        }
-        return Response.status(HttpStatus.BAD_REQUEST_400).entity(new WebApplicationException("Account not exist")).build();
+    public AccountModel getAccount(@PathParam("accountUUID") UUID accountId) throws Exception {
+        AccountModel account = accountsService.getAccount(accountId);
+        return account;
+    }
+
+    @POST
+    public AccountModel createAccount(ImmutableAccountModel account) throws Exception {
+        UUID uuid = accountsService.createAccount(account);
+        return ImmutableAccountModel.builder()
+                .id(uuid).build();
+    }
+
+
+    @PUT
+    @Path("{accountUUID}/deactivate")
+    public AccountModel deactivate(@PathParam("accountUUID") UUID accountId) throws Exception {
+        UUID uuid = accountsService.changeStatus(accountId, AccountStatus.DEACTIVE);
+
+        return ImmutableAccountModel.builder()
+                .accountStatus(AccountStatus.DEACTIVE.name()).build();
+    }
+
+    @PUT
+    @Path("{accountUUID}/approve")
+    public AccountModel approve(@PathParam("accountUUID") UUID accountId) throws Exception {
+        UUID uuid = accountsService.changeStatus(accountId, AccountStatus.ACTIVE);
+
+        return ImmutableAccountModel.builder()
+                .accountStatus(AccountStatus.ACTIVE.name()).build();
     }
 }

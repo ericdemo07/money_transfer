@@ -65,6 +65,7 @@
                 <version>${mojo.plugin.version}</version>
                 <configuration>
                     <mainClass>com.payments.MoneyTransferApplication</mainClass>
+                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
                     <arguments>
                         <!--<argument>db</argument>-->
                         <!--<argument>migrate</argument>-->
