@@ -10,7 +10,7 @@ INSERT INTO Accounts(Id, CurrentBalance, AccountStatus)
 VALUES ('65e65a27-89cf-473d-8e31-526264db78e3', 12345609.00, 'ACTIVE');
 
 INSERT INTO Accounts(Id, CurrentBalance, AccountStatus)
-VALUES ('34e65a27-89cf-473d-8e31-526224db78e3', 0.00, 'UNDER_SCRUTINY');
+VALUES ('34e65a27-89cf-473d-8e31-526224db78e3', 323232.00, 'UNDER_SCRUTINY');
 
 
 --transactions

@@ -1,12 +1,14 @@
 package com.payments.resources;
 
-import com.payments.models.AccountModel;
 import com.payments.models.ImmutableAccountModel;
 import com.payments.services.AccountsService;
 import com.payments.services.enums.AccountStatus;
+import com.payments.services.mappers.CommonMapper;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 
@@ -17,36 +19,52 @@ public class AccountsResource {
     @Inject
     private AccountsService accountsService;
 
+    @Inject
+    private CommonMapper commonMapper;
+
     @GET
     @Path("{accountUUID}")
-    public AccountModel getAccount(@PathParam("accountUUID") UUID accountId) throws Exception {
-        AccountModel account = accountsService.getAccount(accountId);
-        return account;
+    public void getAccount(@PathParam("accountUUID") UUID accountId,
+                           @Suspended final AsyncResponse asyncResponse) throws Exception {
+
+        accountsService.getAccount(accountId)
+                .subscribe(res -> asyncResponse.resume(res),
+                        inError -> asyncResponse.resume(commonMapper.buildErrorMapper(inError.getMessage())));
     }
 
     @POST
-    public AccountModel createAccount(ImmutableAccountModel account) throws Exception {
-        UUID uuid = accountsService.createAccount(account);
-        return ImmutableAccountModel.builder()
-                .id(uuid).build();
+    public void createAccount(ImmutableAccountModel account,
+                              @Suspended final AsyncResponse asyncResponse) throws Exception {
+
+        accountsService.createAccount(account)
+                .subscribe(res -> asyncResponse.resume(ImmutableAccountModel.builder().id(res).build()),
+                        inError -> asyncResponse.resume(commonMapper.buildErrorMapper(inError.getMessage())));
     }
 
 
     @PUT
     @Path("{accountUUID}/deactivate")
-    public AccountModel deactivate(@PathParam("accountUUID") UUID accountId) throws Exception {
-        UUID uuid = accountsService.changeStatus(accountId, AccountStatus.DEACTIVE);
+    public void deactivate(@PathParam("accountUUID") UUID accountId,
+                           @Suspended final AsyncResponse asyncResponse) throws Exception {
 
-        return ImmutableAccountModel.builder()
-                .accountStatus(AccountStatus.DEACTIVE.name()).build();
+        accountsService.changeStatus(accountId, AccountStatus.DEACTIVE)
+                .subscribe(res -> asyncResponse.resume(ImmutableAccountModel.builder()
+                                .id(res)
+                                .accountStatus(AccountStatus.DEACTIVE.name())
+                                .build()),
+                        inError -> asyncResponse.resume(commonMapper.buildErrorMapper(inError.getMessage())));
     }
 
     @PUT
     @Path("{accountUUID}/approve")
-    public AccountModel approve(@PathParam("accountUUID") UUID accountId) throws Exception {
-        UUID uuid = accountsService.changeStatus(accountId, AccountStatus.ACTIVE);
+    public void approve(@PathParam("accountUUID") UUID accountId,
+                        @Suspended final AsyncResponse asyncResponse) throws Exception {
 
-        return ImmutableAccountModel.builder()
-                .accountStatus(AccountStatus.ACTIVE.name()).build();
+        accountsService.changeStatus(accountId, AccountStatus.ACTIVE)
+                .subscribe(res -> asyncResponse.resume(ImmutableAccountModel.builder()
+                                .id(res)
+                                .accountStatus(AccountStatus.ACTIVE.name())
+                                .build()),
+                        inError -> asyncResponse.resume(commonMapper.buildErrorMapper(inError.getMessage())));
     }
 }

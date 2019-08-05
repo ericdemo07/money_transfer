@@ -1,24 +1,21 @@
 package com.payments.jdbi.models;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
+import org.immutables.value.Generated;
+
+import javax.annotation.CheckReturnValue;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import javax.annotation.CheckReturnValue;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.concurrent.NotThreadSafe;
-import org.immutables.value.Generated;
 
 /**
  * Immutable implementation of {@link Account}.
@@ -52,7 +49,6 @@ public final class ImmutableAccount implements Account {
   /**
    * @return The value of the {@code id} attribute
    */
-  @JsonProperty
   @Override
   public UUID id() {
     return id;
@@ -61,7 +57,6 @@ public final class ImmutableAccount implements Account {
   /**
    * @return The value of the {@code currentBalance} attribute
    */
-  @JsonProperty
   @Override
   public BigDecimal currentBalance() {
     return currentBalance;
@@ -70,7 +65,6 @@ public final class ImmutableAccount implements Account {
   /**
    * @return The value of the {@code accountStatus} attribute
    */
-  @JsonProperty
   @Override
   public int accountStatus() {
     return accountStatus;
@@ -79,7 +73,6 @@ public final class ImmutableAccount implements Account {
   /**
    * @return The value of the {@code createdAt} attribute
    */
-  @JsonProperty
   @Override
   public OffsetDateTime createdAt() {
     return createdAt;
@@ -180,72 +173,6 @@ public final class ImmutableAccount implements Account {
   }
 
   /**
-   * Utility type used to correctly read immutable object from JSON representation.
-   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
-   */
-  @Generated(from = "Account", generator = "Immutables")
-  @Deprecated
-  @SuppressWarnings("Immutable")
-  @JsonDeserialize
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
-  static final class Json implements Account {
-    @Nullable UUID id;
-    @Nullable BigDecimal currentBalance;
-    int accountStatus;
-    boolean accountStatusIsSet;
-    @Nullable OffsetDateTime createdAt;
-    @JsonProperty
-    public void setId(UUID id) {
-      this.id = id;
-    }
-    @JsonProperty
-    public void setCurrentBalance(BigDecimal currentBalance) {
-      this.currentBalance = currentBalance;
-    }
-    @JsonProperty
-    public void setAccountStatus(int accountStatus) {
-      this.accountStatus = accountStatus;
-      this.accountStatusIsSet = true;
-    }
-    @JsonProperty
-    public void setCreatedAt(OffsetDateTime createdAt) {
-      this.createdAt = createdAt;
-    }
-    @Override
-    public UUID id() { throw new UnsupportedOperationException(); }
-    @Override
-    public BigDecimal currentBalance() { throw new UnsupportedOperationException(); }
-    @Override
-    public int accountStatus() { throw new UnsupportedOperationException(); }
-    @Override
-    public OffsetDateTime createdAt() { throw new UnsupportedOperationException(); }
-  }
-
-  /**
-   * @param json A JSON-bindable data structure
-   * @return An immutable value type
-   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
-   */
-  @Deprecated
-  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-  static ImmutableAccount fromJson(Json json) {
-    Builder builder = ImmutableAccount.builder();
-    if (json.id != null) {
-      builder.id(json.id);
-    }
-    if (json.currentBalance != null) {
-      builder.currentBalance(json.currentBalance);
-    }
-    if (json.accountStatusIsSet) {
-      builder.accountStatus(json.accountStatus);
-    }
-    if (json.createdAt != null) {
-      builder.createdAt(json.createdAt);
-    }
-    return builder.build();
-  }
-
-  /**
    * Creates an immutable copy of a {@link Account} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
@@ -308,7 +235,7 @@ public final class ImmutableAccount implements Account {
      * @param instance The instance from which to copy values
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     public final Builder from(Account instance) {
       Objects.requireNonNull(instance, "instance");
       id(instance.id());
@@ -320,11 +247,10 @@ public final class ImmutableAccount implements Account {
 
     /**
      * Initializes the value for the {@link Account#id() id} attribute.
-     * @param id The value for id 
+     * @param id The value for id
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
-    @JsonProperty
+    @CanIgnoreReturnValue
     public final Builder id(UUID id) {
       this.id = Objects.requireNonNull(id, "id");
       initBits &= ~INIT_BIT_ID;
@@ -333,11 +259,10 @@ public final class ImmutableAccount implements Account {
 
     /**
      * Initializes the value for the {@link Account#currentBalance() currentBalance} attribute.
-     * @param currentBalance The value for currentBalance 
+     * @param currentBalance The value for currentBalance
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
-    @JsonProperty
+    @CanIgnoreReturnValue
     public final Builder currentBalance(BigDecimal currentBalance) {
       this.currentBalance = Objects.requireNonNull(currentBalance, "currentBalance");
       initBits &= ~INIT_BIT_CURRENT_BALANCE;
@@ -346,11 +271,10 @@ public final class ImmutableAccount implements Account {
 
     /**
      * Initializes the value for the {@link Account#accountStatus() accountStatus} attribute.
-     * @param accountStatus The value for accountStatus 
+     * @param accountStatus The value for accountStatus
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
-    @JsonProperty
+    @CanIgnoreReturnValue
     public final Builder accountStatus(int accountStatus) {
       this.accountStatus = accountStatus;
       initBits &= ~INIT_BIT_ACCOUNT_STATUS;
@@ -359,11 +283,10 @@ public final class ImmutableAccount implements Account {
 
     /**
      * Initializes the value for the {@link Account#createdAt() createdAt} attribute.
-     * @param createdAt The value for createdAt 
+     * @param createdAt The value for createdAt
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
-    @JsonProperty
+    @CanIgnoreReturnValue
     public final Builder createdAt(OffsetDateTime createdAt) {
       this.createdAt = Objects.requireNonNull(createdAt, "createdAt");
       initBits &= ~INIT_BIT_CREATED_AT;

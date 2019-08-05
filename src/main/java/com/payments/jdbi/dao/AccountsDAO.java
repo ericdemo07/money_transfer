@@ -10,6 +10,7 @@ import ru.vyarus.guicey.jdbi3.installer.repository.JdbiRepository;
 import ru.vyarus.guicey.jdbi3.tx.InTransaction;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @JdbiRepository
@@ -27,4 +28,10 @@ public interface AccountsDAO {
 
     @SqlUpdate("UPDATE Accounts SET AccountStatus = :AccountStatus WHERE Id = :id")
     boolean changeStatus(@Bind("AccountStatus") String accountStatus, @Bind("id") UUID accountId);
+
+    @SqlQuery("SELECT Id, CurrentBalance, AccountStatus, CreatedAt FROM Accounts WHERE Id IN (:debitAccountId, :creditAccountId)")
+    List<Account> getStatus(@Bind("debitAccountId") UUID debitAccountId, @Bind("creditAccountId") UUID creditAccountId);
+
+    @SqlUpdate("UPDATE Accounts SET CurrentBalance = CurrentBalance - :Amount WHERE Id = :id")
+    boolean debit(@Bind("Amount") BigDecimal amount, @Bind("id") UUID accountId);
 }
