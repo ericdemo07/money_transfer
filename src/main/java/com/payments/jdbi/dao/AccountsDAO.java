@@ -31,7 +31,4 @@ public interface AccountsDAO {
 
     @SqlQuery("SELECT Id, CurrentBalance, AccountStatus, CreatedAt FROM Accounts WHERE Id IN (:debitAccountId, :creditAccountId)")
     List<Account> getStatus(@Bind("debitAccountId") UUID debitAccountId, @Bind("creditAccountId") UUID creditAccountId);
-
-    @SqlUpdate("UPDATE Accounts SET CurrentBalance = CurrentBalance - :Amount WHERE Id = :id")
-    boolean debit(@Bind("Amount") BigDecimal amount, @Bind("id") UUID accountId);
 }

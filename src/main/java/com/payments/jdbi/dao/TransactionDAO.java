@@ -2,6 +2,7 @@ package com.payments.jdbi.dao;
 
 import com.payments.jdbi.mapper.TransactionMapper;
 import com.payments.jdbi.models.Transaction;
+import com.payments.models.TransactionModel;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
@@ -28,4 +29,16 @@ public interface TransactionDAO {
                               @Bind("Amount") BigDecimal Amount,
                               @Bind("TransactionType") String TransactionType);
 
+    @SqlUpdate("UPDATE Accounts SET CurrentBalance = CurrentBalance - :Amount WHERE Id = :id")
+    boolean debit(@Bind("Amount") BigDecimal amount, @Bind("id") UUID accountId);
+
+    @org.jdbi.v3.sqlobject.transaction.Transaction
+    default void transact(TransactionModel transaction, UUID id) {
+        debit(transaction.amount().get(), transaction.debitAccountId().get());
+        createTransaction(id,
+                transaction.debitAccountId().get(),
+                transaction.creditAccountId().get(),
+                transaction.amount().get(),
+                transaction.transactionType().get());
+    }
 }

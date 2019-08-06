@@ -45,7 +45,7 @@ public class AccountsService {
                 account.currentBalance().orElse(BigDecimal.valueOf(0.0)),
                 AccountStatus.UNDER_SCRUTINY.name()))
                 .map(success -> {
-                            if (!success) {
+                            if (success) {
                                 return uuid;
                             }
                             throw new WebApplicationException("Account creation failed");

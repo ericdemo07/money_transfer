@@ -7,17 +7,18 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Var;
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import org.immutables.value.Generated;
+
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
-import org.immutables.value.Generated;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Immutable implementation of {@link TransactionModel}.
@@ -467,7 +468,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param instance The instance from which to copy values
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     public final Builder from(TransactionModel instance) {
       Objects.requireNonNull(instance, "instance");
       Optional<UUID> idOptional = instance.id();
@@ -502,7 +503,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param id The value for id
      * @return {@code this} builder for chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     public final Builder id(UUID id) {
       this.id = Objects.requireNonNull(id, "id");
       return this;
@@ -513,7 +514,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param id The value for id
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     @JsonProperty
     public final Builder id(Optional<? extends UUID> id) {
       this.id = id.orElse(null);
@@ -525,7 +526,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param debitAccountId The value for debitAccountId
      * @return {@code this} builder for chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     public final Builder debitAccountId(UUID debitAccountId) {
       this.debitAccountId = Objects.requireNonNull(debitAccountId, "debitAccountId");
       return this;
@@ -536,7 +537,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param debitAccountId The value for debitAccountId
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     @JsonProperty
     public final Builder debitAccountId(Optional<? extends UUID> debitAccountId) {
       this.debitAccountId = debitAccountId.orElse(null);
@@ -548,7 +549,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param creditAccountId The value for creditAccountId
      * @return {@code this} builder for chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     public final Builder creditAccountId(UUID creditAccountId) {
       this.creditAccountId = Objects.requireNonNull(creditAccountId, "creditAccountId");
       return this;
@@ -559,7 +560,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param creditAccountId The value for creditAccountId
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     @JsonProperty
     public final Builder creditAccountId(Optional<? extends UUID> creditAccountId) {
       this.creditAccountId = creditAccountId.orElse(null);
@@ -571,7 +572,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param amount The value for amount
      * @return {@code this} builder for chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     public final Builder amount(BigDecimal amount) {
       this.amount = Objects.requireNonNull(amount, "amount");
       return this;
@@ -582,7 +583,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param amount The value for amount
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     @JsonProperty
     public final Builder amount(Optional<? extends BigDecimal> amount) {
       this.amount = amount.orElse(null);
@@ -594,7 +595,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param transactionType The value for transactionType
      * @return {@code this} builder for chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     public final Builder transactionType(String transactionType) {
       this.transactionType = Objects.requireNonNull(transactionType, "transactionType");
       return this;
@@ -605,7 +606,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param transactionType The value for transactionType
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     @JsonProperty
     public final Builder transactionType(Optional<String> transactionType) {
       this.transactionType = transactionType.orElse(null);
@@ -617,7 +618,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param createdAt The value for createdAt
      * @return {@code this} builder for chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     public final Builder createdAt(OffsetDateTime createdAt) {
       this.createdAt = Objects.requireNonNull(createdAt, "createdAt");
       return this;
@@ -628,7 +629,7 @@ public final class ImmutableTransactionModel implements TransactionModel {
      * @param createdAt The value for createdAt
      * @return {@code this} builder for use in a chained invocation
      */
-    @CanIgnoreReturnValue 
+    @CanIgnoreReturnValue
     @JsonProperty
     public final Builder createdAt(Optional<? extends OffsetDateTime> createdAt) {
       this.createdAt = createdAt.orElse(null);

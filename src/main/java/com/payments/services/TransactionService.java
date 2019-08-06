@@ -52,13 +52,7 @@ public class TransactionService {
         return Single.just(UUID.randomUUID())
                 .map(id -> {
                     try {
-                        accountsDAO.debit(transaction.amount().get(), transaction.debitAccountId().get());
-                        transactionDAO.createTransaction(id,
-                                transaction.debitAccountId().get(),
-                                transaction.creditAccountId().get(),
-                                transaction.amount().get(),
-                                transaction.transactionType().get());
-
+                        transactionDAO.transact(transaction, id);
                         return ImmutableTransactionModel.builder().id(id).build();
                     } catch (Exception ex) {
                         throw new WebApplicationException("Error Occoured");

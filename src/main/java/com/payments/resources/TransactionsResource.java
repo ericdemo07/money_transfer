@@ -23,7 +23,7 @@ public class TransactionsResource {
 
     @GET
     @Path("{transactionUUID}")
-    public void getAccount(@PathParam("transactionUUID") UUID transactionId,
+    public void getTransaction(@PathParam("transactionUUID") UUID transactionId,
                            @Suspended final AsyncResponse asyncResponse) throws Exception {
 
         transactionService.getTransaction(transactionId)
