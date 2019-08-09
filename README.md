@@ -75,3 +75,7 @@ $ curl -X POST \
     "transactionType": "NEFT"
 }'
 ```
+```sh
+$ ##get transaction by id
+$ curl -X GET http://localhost:9001/transactions/cc3ac924-b871-11e9-a2a3-2a2ae2dbcce4 
+```
