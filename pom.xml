@@ -11,7 +11,7 @@
     <properties>
         <dropwizard.version>1.3.13</dropwizard.version>
         <mojo.plugin.version>1.6.0</mojo.plugin.version>
-        <h2.version>1.4.195</h2.version>
+        <h2.version>2.1.210</h2.version>
         <dropwizard-guicey.version>4.2.2</dropwizard-guicey.version>
         <guicey-jdbi3.version>0.7.0</guicey-jdbi3.version>
         <immutables.version>2.7.5</immutables.version>
